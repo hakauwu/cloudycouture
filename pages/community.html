@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loader.css">
+    <link rel="icon" sizes="32x32" href="../assets/images/cc-logo.png">
+    <link rel="icon" sizes="16x16" href="../assets/images/cc-logo.png">
+    <link rel="apple-touch-icon" href="../assets/images/cc-logo.png">
+    <style>
+        .container-ia-chat {
+            width: 100%;
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 50px;
+            border: none;
+            outline: none;
+            background-color: #e9e9e9;
+            color: #4c4c4c;
+            font-size: 14px;
+            line-height: 18px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .input-text::placeholder {
+            color: #959595;
+        }
+
+        .input-text:focus {
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Overlay nền mờ */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .uppost-form-container {
+            width: 400px;
+            max-width: 90vw;
+            background: linear-gradient(#212121, #212121) padding-box,
+                linear-gradient(rgba(0, 128, 128, 0.295)) border-box;
+            border: 2px solid transparent;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .uppost-form-container .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #717171;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .uppost-form-container .close-btn:hover {
+            background-color: #414141;
+            color: #fff;
+        }
+
+        .uppost-form-container button:active {
+            scale: 0.95;
+        }
+
+        .uppost-form-container .uppost-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .uppost-form-container .uppost-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .uppost-form-container .uppost-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #717171;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .uppost-form-container .uppost-form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            background-color: transparent;
+            border: 1px solid #414141;
+        }
+
+        .uppost-form-container .uppost-form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            resize: none;
+            color: #fff;
+            height: 96px;
+            border: 1px solid #414141;
+            background-color: transparent;
+            font-family: inherit;
+        }
+
+        .uppost-form-container .uppost-form-group input::placeholder {
+            opacity: 0.5;
+        }
+
+        .uppost-form-container .uppost-form-group input:focus {
+            outline: none;
+            border-color: teal;
+        }
+
+        .uppost-form-container .uppost-form-group textarea:focus {
+            outline: none;
+            border-color: teal;
+        }
+
+        .image-upload-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .image-upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #313131;
+            border: 1px solid #414141;
+            color: #717171;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .image-upload-btn:hover {
+            background-color: #414141;
+            border-color: teal;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .form-submit-btn,
+        .form-cancel-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            color: #717171;
+            font-weight: 600;
+            padding: 12px 20px;
+            font-size: inherit;
+            gap: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            border: 1px solid #414141;
+            transition: all 0.3s;
+        }
+
+        .form-submit-btn {
+            background: teal;
+            border-color: teal;
+            color: white;
+        }
+
+        .form-submit-btn:hover {
+            background-color: rgb(0, 97, 97);
+            border-color: rgb(0, 97, 97);
+        }
+
+        .form-cancel-btn {
+            background: #313131;
+        }
+
+        .form-cancel-btn:hover {
+            background-color: #414141;
+            border-color: #717171;
+        }
+
+        .notification-container {
+            /* Position top left */
+
+            /* position: fixed;
+      top: 2%;
+      left: 2%;
+      z-index: 1000;
+      max-width: 80%; */
+
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10001;
+
+
+            --content-color: black;
+            --background-color: #f3f3f3;
+            --font-size-content: 0.75em;
+            --icon-size: 1em;
+
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            list-style-type: none;
+            font-family: sans-serif;
+            color: var(--content-color);
+        }
+
+        /* Notification Item */
+
+        .notification-item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            gap: 1em;
+            overflow: hidden;
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: rgba(111, 111, 111, 0.2) 0px 8px 24px;
+            background-color: var(--background-color);
+            transition: all 250ms ease;
+
+            /* Background Pattern */
+
+            --grid-color: rgba(225, 225, 225, 0.7);
+            background-image: linear-gradient(0deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent),
+                linear-gradient(90deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent);
+            background-size: 55px 55px;
+        }
+
+        .notification-item svg {
+            transition: 250ms ease;
+        }
+
+        .notification-item:hover {
+            transform: scale(1.01);
+        }
+
+        .notification-item:active {
+            transform: scale(1.05);
+        }
+
+        .notification-item .notification-close:hover {
+            background-color: rgba(204, 204, 204, 0.45);
+        }
+
+        .notification-item .notification-close:hover svg {
+            color: rgb(0, 0, 0);
+        }
+
+        .notification-item .notification-close:active svg {
+            transform: scale(1.1);
+        }
+
+        /* Notification Icons */
+
+        .notification-item .notification-close {
+            padding: 2px;
+            border-radius: 5px;
+            transition: all 250ms;
+        }
+
+        .notification-container svg {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            color: var(--content-color);
+        }
+
+        .notification-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Success */
+
+        .success {
+            color: #047857;
+            background-color: #7dffbc;
+            --grid-color: rgba(16, 185, 129, 0.25);
+            background-image: linear-gradient(0deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent),
+                linear-gradient(90deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent);
+        }
+
+        .success svg {
+            color: #047857;
+        }
+
+        .success .notification-progress-bar {
+            background-color: #047857;
+        }
+
+        .success:hover {
+            background-color: #5bffaa;
+        }
+
+        /* Info */
+
+        .info {
+            color: #1e3a8a;
+            background-color: #7eb8ff;
+            --grid-color: rgba(59, 131, 246, 0.25);
+            background-image: linear-gradient(0deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent),
+                linear-gradient(90deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent);
+        }
+
+        .info svg {
+            color: #1e3a8a;
+        }
+
+        .info .notification-progress-bar {
+            background-color: #1e3a8a;
+        }
+
+        .info:hover {
+            background-color: #5ba5ff;
+        }
+
+        /* Warning */
+
+        .warning {
+            color: #78350f;
+            background-color: #ffe57e;
+            --grid-color: rgba(245, 159, 11, 0.25);
+            background-image: linear-gradient(0deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent),
+                linear-gradient(90deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent);
+        }
+
+        .warning svg {
+            color: #78350f;
+        }
+
+        .warning .notification-progress-bar {
+            background-color: #78350f;
+        }
+
+        .warning:hover {
+            background-color: #ffde59;
+        }
+
+        /* Error */
+
+        .error {
+            color: #7f1d1d;
+            background-color: #ff7e7e;
+            --grid-color: rgba(239, 68, 68, 0.25);
+            background-image: linear-gradient(0deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent),
+                linear-gradient(90deg,
+                    transparent 23%,
+                    var(--grid-color) 24%,
+                    var(--grid-color) 25%,
+                    transparent 26%,
+                    transparent 73%,
+                    var(--grid-color) 74%,
+                    var(--grid-color) 75%,
+                    transparent 76%,
+                    transparent);
+        }
+
+        .error svg {
+            color: #7f1d1d;
+        }
+
+        .error .notification-progress-bar {
+            background-color: #7f1d1d;
+        }
+
+        .error:hover {
+            background-color: #ff5f5f;
+        }
+
+        /* Notification content */
+
+        .notification-content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .notification-text {
+            font-size: var(--font-size-content);
+            user-select: none;
+        }
+
+        .notification-close {
+            cursor: pointer;
+        }
+
+        /* Notification progress bar */
+
+        .notification-progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background: var(--content-color);
+            width: 100%;
+            transform: translateX(100%);
+
+            /* Remove the infinite property for your website */
+
+            animation: progressBar 5s linear forwards infinite;
+        }
+
+        .card3 {
+            width: 450px;
+            height: fit-content;
+            background-color: white;
+            box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 17px 17px 27px 27px;
+        }
+
+        .title3 {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            border-bottom: 1px solid #f1f1f1;
+            font-weight: 700;
+            font-size: 13px;
+            color: #47484b;
+        }
+
+        .title3::after {
+            content: '';
+            width: 8ch;
+            height: 1px;
+            position: absolute;
+            bottom: -1px;
+            background-color: #47484b;
+        }
+
+        .comments3 {
+            display: grid;
+            grid-template-columns: 35px 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .comment3-react {
+            width: 35px;
+            height: fit-content;
+            display: grid;
+            grid-template-columns: auto;
+            margin: 0;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .comment3-react button {
+            width: 35px;
+            height: 35px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 0;
+            outline: none;
+        }
+
+        .comment3-react button:after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: -2.5px;
+            top: -2.5px;
+            background-color: #f5356e;
+            border-radius: 50%;
+            z-index: 0;
+            transform: scale(0);
+        }
+
+        .comment3-react button svg {
+            position: relative;
+            z-index: 9;
+        }
+
+        .comment3-react button:hover:after {
+            animation: ripple 0.6s ease-in-out forwards;
+        }
+
+        .comment3-react button:hover svg {
+            fill: #f5356e;
+        }
+
+        .comment3-react button:hover svg path {
+            stroke: #f5356e;
+            fill: #f5356e;
+        }
+
+        .comment3-react hr {
+            width: 80%;
+            height: 1px;
+            background-color: #dfe1e6;
+            margin: auto;
+            border: 0;
+        }
+
+        .comment3-react span {
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            font-size: 13px;
+            font-weight: 600;
+            color: #707277;
+        }
+
+        .comment3-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comment3-container .user3 {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 10px;
+        }
+
+        .comment3-container .user3 .user3-pic {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f1f1;
+            border-radius: 50%;
+        }
+
+        .comment3-container .user3 .user3-pic:after {
+            content: '';
+            width: 9px;
+            height: 9px;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            border-radius: 50%;
+            background-color: #0fc45a;
+            border: 2px solid #ffffff;
+        }
+
+        .comment3-container .user3 .user3-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        .comment3-container .user3 .user3-info span {
+            font-weight: 700;
+            font-size: 12px;
+            color: #47484b;
+        }
+
+        .comment-container .user .user-info p {
+            font-weight: 600;
+            font-size: 10px;
+            color: #acaeb4;
+        }
+
+        .comment3-container .comment3-content {
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 600;
+            color: #5f6064;
+        }
+
+        .text3-box {
+            width: 100%;
+            height: fit-content;
+            background-color: #f1f1f1;
+            padding: 8px;
+        }
+
+        .text3-box .box3-container {
+            background-color: #ffffff;
+            border-radius: 8px 8px 21px 21px;
+            padding: 8px;
+        }
+
+        .text3-box textarea {
+            width: 100%;
+            height: 40px;
+            resize: none;
+            border: 0;
+            border-radius: 6px;
+            padding: 12px 12px 10px 12px;
+            font-size: 13px;
+            outline: none;
+            caret-color: #0a84ff;
+        }
+
+        .text3-box .formatting3 {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto 1fr;
+        }
+
+        .text3-box .formatting3 button {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 50%;
+            border: 0;
+            outline: none;
+        }
+
+        .text3-box .formatting3 button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .text3-box .formatting3 .send {
+            width: 30px;
+            height: 30px;
+            background-color: #0a84ff;
+            margin: 0 0 0 auto;
+        }
+
+        .text3-box .formatting3 .send3:hover {
+            background-color: #026eda;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced post stats styling */
+        .post-stats {
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
+            border-top: 1px solid #f1f1f1;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #707277;
+        }
+
+        .post-stats span {
+            font-weight: 600;
+        }
+
+        /* Card3 container enhancements */
+        .card3-container {
+            backdrop-filter: blur(5px);
+        }
+
+        .card3 {
+            box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Post detail content styling */
+        .post-detail-content img {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced comment styling */
+        .comments-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .comments-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .comments-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .comments-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .comments-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Enhanced textarea styling */
+        #commentTextarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #commentTextarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.3);
+            border-color: #0a84ff;
+        }
+
+        /* Format button enhancements */
+        .formatting3 button {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .formatting3 button:hover {
+            background-color: #e1e1e1;
+            transform: translateY(-1px);
+        }
+
+        .formatting3 button:active {
+            transform: translateY(0);
+        }
+
+        .formatting3 button[title="Mention"] {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Send button enhancement */
+        .send3 {
+            background: linear-gradient(135deg, #0a84ff, #0056cc);
+            transition: all 0.3s ease;
+        }
+
+        .send3:hover {
+            background: linear-gradient(135deg, #026eda, #004bb5);
+            transform: scale(1.05);
+        }
+
+        /* Close button styling */
+        .close-detail-btn:hover {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 50%;
+        }
+
+        /* Like button animation */
+        .comment3-react button:hover {
+            transform: scale(1.1);
+        }
+
+        .comment3-react button:hover svg path {
+            fill: #f5356e;
+            stroke: #f5356e;
+        }
+
+        /* Enhanced card2 hover effects */
+        .card2:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        /* No posts message styling */
+        .no-posts {
+            text-align: center;
+            color: #707277;
+            font-style: italic;
+            padding: 40px 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Responsive design for card3 */
+        @media (max-width: 768px) {
+            .card3 {
+                width: 95vw;
+                max-height: 85vh;
+                margin: 0 10px;
+            }
+
+            .post-detail-content {
+                padding: 15px;
+            }
+
+            .comments3 {
+                gap: 15px;
+            }
+
+            .formatting3 {
+                grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+                gap: 5px;
+            }
+        }
+
+        /* Animation for card3 appearance */
+        .card3-container {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .card3 {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced formatting for displayed comments */
+        .comment3-content {
+            line-height: 1.5;
+        }
+
+        /* Style for formatted text in comments */
+        .comment3-content strong {
+            font-weight: bold;
+        }
+
+        .comment3-content em {
+            font-style: italic;
+        }
+
+        .comment3-content u {
+            text-decoration: underline;
+        }
+
+        .comment3-content s {
+            text-decoration: line-through;
+        }
+
+        /* Mention styling */
+        .mention {
+            color: #0a84ff;
+            background: rgba(10, 132, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Loading overlay for card3 */
+        .card3.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Notification positioning fix for overlay */
+        .card3-container~.notification-container {
+            z-index: 10001;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <header>
+            <!-- From Uiverse.io by JulanDeAlb -->
+            <div>
+                <label class="hamburger" style="size: 20px;">
+                    <input type="checkbox">
+                    <svg viewBox="0 0 32 32">
+                        <path class="line line-top-bottom"
+                            d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                        </path>
+                        <path class="line" d="M7 16 27 16"></path>
+                    </svg>
+                </label>
+
+                <nav class="side-menu" id="sideMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Introduction</a></li>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="weather.html">Weather</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+            <a href="./index.html"><img class="cc-logo" src="../assets/images/cc-logo.png" alt="cc-logo"
+                    style="width: 100px;" style="padding: 20px;"></a>
+
+            <!-- From Uiverse.io by Li-Deheng -->
+            <div class="search-panels">
+                <div class="search-group">
+                    <input required="" type="text" name="text" autocomplete="on" class="search-input">
+                    <label class="enter-label">Search</label>
+                    <div class="btn-box">
+                        <button class="btn-search">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                                <path
+                                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                                </path>
+                                <circle id="svg-circle" cx="208" cy="208" r="144"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="btn-box-x">
+                        <button class="btn-cleare">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                                <path
+                                    d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                                    id="cleare-line"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- From Uiverse.io by matinMMA -->
+            <button class="acc-button">
+                <a id="bot" href="./login.html"> Login </a>
+            </button>
+
+
+        </header>
+
+        <main class="newfeeds-container">
+            <div class="main-layout">
+                <div class="main-content container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="container-ia-chat">
+                                <input type="text" name="input-text" id="input-text" placeholder="What's on your mind?"
+                                    class="input-text" required />
+                            </div>
+
+                            <!-- Overlay + Popup Form -->
+                            <div class="overlay" id="overlay">
+                                <div class="uppost-form-container">
+                                    <button class="close-btn" id="closeBtn">&times;</button>
+                                    <h4 style="margin-bottom: 20px; color: white;">Create New Post</h4>
+                                    <form class="uppost-form" id="postForm">
+                                        <div class="uppost-form-group">
+                                            <label for="postTitle">Title</label>
+                                            <input type="text" id="postTitle" name="title"
+                                                placeholder="Enter post title..." required>
+                                        </div>
+                                        <div class="uppost-form-group">
+                                            <label for="postContent">Content</label>
+                                            <textarea name="content" id="postContent" rows="10" cols="50"
+                                                placeholder="What's on your mind?" required></textarea>
+                                        </div>
+
+                                        <div class="image-upload-section">
+                                            <label for="imageInput" class="image-upload-btn">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path
+                                                        d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                                                </svg>
+                                                Add Image
+                                            </label>
+                                            <input type="file" id="imageInput" accept="image/*">
+                                            <div id="imagePreview"></div>
+                                        </div>
+
+                                        <div class="form-buttons">
+                                            <button type="button" class="form-cancel-btn" id="cancelBtn">Cancel</button>
+                                            <button class="form-submit-btn" type="submit">Post</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <div id="newfeeds" class="new-posts">
+                                <h1>Latest Post</h1>
+                                <!-- <div class="card2" onclick="window.location.href='sunny-day.html'"
+                                    style="cursor:pointer;">
+                                    <div class="card2-image"></div>
+                                    <p class="card2-title">Card title</p>
+                                    <p class="card2-body">
+                                        Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
+                                        tristique, non lobortis.
+                                    </p>
+                                    <p class="card-footer">Written by <span class="by-name">User</span> on
+                                        <span class="date"></span>
+                                    </p>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="main-sidebar sticky-top">
+                                <div class="card1" onclick="window.location.href='about.html'" style="cursor:pointer;">
+                                    <div class="body">
+                                        <h5 style="color: aliceblue;">Welcome to Clothes Couture!</h5>
+                                        <p class="text">Discover what to wear based on real-time weather conditions...
+                                        </p>
+                                        <span class="username">From: Clothes Couture</span>
+                                        <div class="footer">
+                                            <div>
+                                                <div><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                                                        <g stroke-linejoin="round" stroke-linecap="round"
+                                                            id="SVGRepo_tracerCarrier"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path stroke-linejoin="round" stroke-linecap="round"
+                                                                stroke-width="1.5"
+                                                                d="M16 10H16.01M12 10H12.01M8 10H8.01M3 10C3 4.64706 5.11765 3 12 3C18.8824 3 21 4.64706 21 10C21 15.3529 18.8824 17 12 17C11.6592 17 11.3301 16.996 11.0124 16.9876L7 21V16.4939C4.0328 15.6692 3 13.7383 3 10Z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>0</div>
+                                                <div><svg fill="#000000" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                        viewBox="-2.5 0 32 32">
+                                                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                                                        <g stroke-linejoin="round" stroke-linecap="round"
+                                                            id="SVGRepo_tracerCarrier"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <g id="icomoon-ignore"> </g>
+                                                            <path fill="#000000"
+                                                                d="M0 10.284l0.505 0.36c0.089 0.064 0.92 0.621 2.604 0.621 0.27 0 0.55-0.015 0.836-0.044 3.752 4.346 6.411 7.472 7.060 8.299-1.227 2.735-1.42 5.808-0.537 8.686l0.256 0.834 7.63-7.631 8.309 8.309 0.742-0.742-8.309-8.309 7.631-7.631-0.834-0.255c-2.829-0.868-5.986-0.672-8.686 0.537-0.825-0.648-3.942-3.3-8.28-7.044 0.11-0.669 0.23-2.183-0.575-3.441l-0.352-0.549-8.001 8.001zM1.729 10.039l6.032-6.033c0.385 1.122 0.090 2.319 0.086 2.334l-0.080 0.314 0.245 0.214c7.409 6.398 8.631 7.39 8.992 7.546l-0.002 0.006 0.195 0.058 0.185-0.087c2.257-1.079 4.903-1.378 7.343-0.836l-13.482 13.481c-0.55-2.47-0.262-5.045 0.837-7.342l0.104-0.218-0.098-0.221-0.031 0.013c-0.322-0.632-1.831-2.38-7.498-8.944l-0.185-0.215-0.282 0.038c-0.338 0.045-0.668 0.069-0.981 0.069-0.595 0-1.053-0.083-1.38-0.176z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>0</div>
+                                                <div><svg viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                            stroke-linejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path opacity="0.1"
+                                                                d="M21 6C21 7.65685 19.6569 9 18 9C16.3431 9 15 7.65685 15 6C15 4.34315 16.3431 3 18 3C19.6569 3 21 4.34315 21 6Z"
+                                                                fill="#323232"></path>
+                                                            <path opacity="0.1"
+                                                                d="M21 18C21 19.6569 19.6569 21 18 21C16.3431 21 15 19.6569 15 18C15 16.3431 16.3431 15 18 15C19.6569 15 21 16.3431 21 18Z"
+                                                                fill="#323232"></path>
+                                                            <path opacity="0.1"
+                                                                d="M9 12C9 13.6569 7.65685 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.65685 9 9 10.3431 9 12Z"
+                                                                fill="#323232"></path>
+                                                            <path
+                                                                d="M21 6C21 7.65685 19.6569 9 18 9C16.3431 9 15 7.65685 15 6C15 4.34315 16.3431 3 18 3C19.6569 3 21 4.34315 21 6Z"
+                                                                stroke-width="2"></path>
+                                                            <path
+                                                                d="M21 18C21 19.6569 19.6569 21 18 21C16.3431 21 15 19.6569 15 18C15 16.3431 16.3431 15 18 15C19.6569 15 21 16.3431 21 18Z"
+                                                                stroke-width="2"></path>
+                                                            <path
+                                                                d="M9 12C9 13.6569 7.65685 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.65685 9 9 10.3431 9 12Z"
+                                                                stroke-width="2"></path>
+                                                            <path d="M8.7207 10.6397L15.0001 7.5" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            <path d="M8.70605 13.353L15 16.5" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </g>
+                                                    </svg>0</div>
+                                            </div>
+
+                                            <div class="viewer">
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                                                        <g stroke-linejoin="round" stroke-linecap="round"
+                                                            id="SVGRepo_tracerCarrier"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path stroke-width="2" stroke="#ffffff"
+                                                                d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z">
+                                                            </path>
+                                                            <path stroke-linecap="round" stroke-width="2"
+                                                                stroke="#ffffff"
+                                                                d="M3 21C3.95728 17.9237 6.41998 17 12 17C17.58 17 20.0427 17.9237 21 21">
+                                                            </path>
+                                                        </g>
+                                                    </svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                                                        <g stroke-linejoin="round" stroke-linecap="round"
+                                                            id="SVGRepo_tracerCarrier"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path stroke-width="2" stroke="#ffffff"
+                                                                d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z">
+                                                            </path>
+                                                            <path stroke-linecap="round" stroke-width="2"
+                                                                stroke="#ffffff"
+                                                                d="M3 21C3.95728 17.9237 6.41998 17 12 17C17.58 17 20.0427 17.9237 21 21">
+                                                            </path>
+                                                        </g>
+                                                    </svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                                                        <g stroke-linejoin="round" stroke-linecap="round"
+                                                            id="SVGRepo_tracerCarrier"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path stroke-width="2" stroke="#ffffff"
+                                                                d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z">
+                                                            </path>
+                                                            <path stroke-linecap="round" stroke-width="2"
+                                                                stroke="#ffffff"
+                                                                d="M3 21C3.95728 17.9237 6.41998 17 12 17C17.58 17 20.0427 17.9237 21 21">
+                                                            </path>
+                                                        </g>
+                                                    </svg></span>
+                                                <span>+1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- From Uiverse.io by 3HugaDa3 -->
+        <label class="cosmic-toggle">
+            <input class="toggle" type="checkbox" />
+            <div class="slider">
+                <div class="cosmos"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="toggle-orb">
+                    <div class="inner-orb"></div>
+                    <div class="ring"></div>
+                </div>
+                <div class="particles">
+                    <div style="--angle: 30deg" class="particle"></div>
+                    <div style="--angle: 60deg" class="particle"></div>
+                    <div style="--angle: 90deg" class="particle"></div>
+                    <div style="--angle: 120deg" class="particle"></div>
+                    <div style="--angle: 150deg" class="particle"></div>
+                    <div style="--angle: 180deg" class="particle"></div>
+                </div>
+            </div>
+        </label>
+
+        <div class="container">
+            <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <img class="mb-2" src="../assets/images/cc-logo.png" alt="" width="80px">
+                        <small class="d-block mb-3 text-body-secondary">©2025</small>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://uiverse.io/">UIverse.io</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Online Articles</a>
+                            </li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Quyền The
+                                    Teacher</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Donate</h5>
+                        <ul class="list-unstyled text-small image-dona">
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/d4bbea4570b93bfd5fc652ca82a262a8"
+                                    alt="Visa"></li>
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/a0a9062ebe19b45c1ae0506f16af5c16"
+                                    alt="Mastercard"></li>
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/38fd98e55806c3b2e4535c4e4a6c4c08"
+                                    alt="JBC"></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Information</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="./about.html">About
+                                    us</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="./community.html">Community</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="./weather.html">Weather</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="notification-container"></div>
+
+    <section class="container-loader" id="loaderSection" style="display: none;">
+        <aside class="loader">
+
+            <div style="--s: 1" class="aro"></div>
+            <div style="--s: 2" class="aro"></div>
+
+            <div style="--s: 4" class="aro"></div>
+            <div style="--s: 5" class="aro"></div>
+
+            <div style="--s: 7" class="aro"></div>
+            <div style="--s: 8" class="aro"></div>
+
+            <div style="--s: 10" class="aro"></div>
+            <div style="--s: 11" class="aro"></div>
+
+            <div style="--s: 13" class="aro"></div>
+            <div style="--s: 14" class="aro"></div>
+        </aside>
+    </section>
+
+    <script src="../js/app.js" type="module"></script>
+    <script type="module" src="../js/gen.js"></script>
+    <script type="module" src="../js/notification.js"></script>
+    <script type="module" src="../js/community.js"></script>
+
+<style>
+            .dark-mode .card2 {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .card2-title {
+            color: aliceblue !important;
+        }
+        
+        .dark-mode .card2-body {
+            color: #ccc !important;
+        }
+        
+        .dark-mode .card-footer {
+            color: #aaa !important;
+            border-top-color: #444 !important;
+        }
+        
+        .dark-mode .by-name {
+            color: teal !important;
+        }
+</style>
+</body>
+
+</html>

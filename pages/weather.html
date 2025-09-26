@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="icon" sizes="32x32" href="../assets/images/cc-logo.png">
+    <link rel="icon" sizes="16x16" href="../assets/images/cc-logo.png">
+    <link rel="apple-touch-icon" href="../assets/images/cc-logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            /* background: linear-gradient(135deg, teal, rgb(0, 61, 61), rgb(128, 0, 79)); */
+            background-image: url(https://i.redd.it/8eb30cgaz0j11.gif);
+            background-size: cover;
+            /* animation: gradientShift 8s ease infinite; */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 51, 51, 0.103) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 51, 51, 0.103) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .weather-container {
+            background: linear-gradient(rgba(0, 128, 128, 0.568));
+            border: 2px solid teal;
+            border-radius: 15px;
+            padding: 20px;
+            width: 350px;
+            box-shadow:
+                0 0 30px rgb(0, 51, 51),
+                inset 0 1px 0 rgba(0, 51, 51, 0.11);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 51, 51, 0.13), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .left-info,
+        .right-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .left-info {
+            text-align: left;
+        }
+
+        .right-info {
+            text-align: right;
+        }
+
+        .time {
+            font-size: 16px;
+            font-weight: bold;
+            color: aliceblue;
+            text-shadow: 0 0 10px rgb(0, 51, 51);
+        }
+
+        .location {
+            font-size: 14px;
+            color: #f0f0f0;
+        }
+
+        .feels-like {
+            font-size: 12px;
+            color: aliceblue;
+            text-shadow: 0 0 5px rgb(0, 51, 51);
+        }
+
+        .precipitation,
+        .humidity,
+        .wind {
+            font-size: 12px;
+            color: #cccccc;
+            padding: 1px 6px;
+            background: rgba(0, 51, 51, 0.11);
+            border-radius: 6px;
+            border: 1px solid rgb(0, 51, 51);
+        }
+
+        .middle-section {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .weather-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 20px rgb(0, 51, 51));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .temperature {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow:
+                0 0 10px rgba(0, 128, 128, 0.781),
+                0 0 20px rgb(0, 51, 51);
+        }
+
+        .weather-description {
+            font-size: 14px;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .search-section {
+            margin: 20px 0;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid teal;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            background: rgba(0, 51, 51, 0.808);
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: teal;
+            box-shadow: 0 0 15px rgb(0, 51, 51);
+            background: rgb(0, 51, 51);
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .search-btn {
+            padding: 8px 16px;
+            background: linear-gradient(145deg, teal);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgb(0, 51, 51);
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(145deg, teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgb(0, 51, 51);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        .forecast-section {
+            margin-top: 20px;
+        }
+
+        .forecast-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            color: aliceblue;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgb(0, 51, 51);
+        }
+
+        .forecast-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .forecast-day {
+            flex: 1;
+            text-align: center;
+            padding: 10px 4px;
+            /* background: linear-gradient(145deg, rgba(42, 42, 42, 0.8), rgba(31, 31, 31, 0.8)); */
+            border: 1px solid rgb(0, 51, 51);
+            border-radius: 8px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .forecast-day::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 51, 51, 0.678), transparent);
+            transition: left 0.5s;
+        }
+
+        .forecast-day:hover {
+            transform: translateY(-3px);
+            border-color: teal;
+            box-shadow: 0 8px 20px rgb(0, 51, 51);
+        }
+
+        .forecast-day:hover::before {
+            left: 100%;
+        }
+
+        .forecast-day-name {
+            font-size: 10px;
+            font-weight: bold;
+            color: aliceblue;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .forecast-icon {
+            font-size: 18px;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 5px rgb(0, 51, 51));
+        }
+
+        .forecast-temps {
+            font-size: 10px;
+            color: #fff;
+        }
+
+        .forecast-high {
+            font-weight: bold;
+            color: aliceblue;
+        }
+
+        .forecast-low {
+            color: #cccccc;
+        }
+
+        .loading {
+            text-align: center;
+            color: aliceblue;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .error {
+            text-align: center;
+            color: rgba(240, 248, 255, 0.774);
+            font-size: 12px;
+            margin: 10px 0;
+            background: rgba(0, 51, 51, 0.459);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgb(0, 51, 51);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2000;
+            display: flex;
+            height: 3em;
+            width: 100px;
+            align-items: center;
+            justify-content: center;
+            background-color: #eeeeee4b;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            transition: all 0.2s linear;
+            cursor: pointer;
+            border: none;
+            background: #fff;
+        }
+
+        .back-button>svg {
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+            transition: all 0.4s ease-in;
+        }
+
+        .back-button:hover>svg {
+            font-size: 1.2em;
+            transform: translateX(-5px);
+        }
+
+        .back-button:hover {
+            box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+            transform: translateY(-2px);
+        }
+
+        #learn-btn {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            background: transparent;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+        }
+
+        #learn-btn.learn-more {
+            width: 12rem;
+            height: auto;
+        }
+
+        #learn-btn.learn-more .circle {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: relative;
+            display: block;
+            margin: 0;
+            width: 3rem;
+            height: 3rem;
+            background: rgb(0, 85, 85);
+            border-radius: 1.625rem;
+        }
+
+        #learn-btn.learn-more .circle .icon {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background: #fff;
+        }
+
+        #learn-btn.learn-more .circle .icon.arrow {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            left: 0.625rem;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: none;
+        }
+
+        #learn-btn.learn-more .circle .icon.arrow::before {
+            position: absolute;
+            content: "";
+            top: -0.29rem;
+            right: 0.0625rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-top: 0.125rem solid #fff;
+            border-right: 0.125rem solid #fff;
+            transform: rotate(45deg);
+        }
+
+        #learn-btn.learn-more .button-text {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0.75rem 0;
+            margin: 0 0 0 1.85rem;
+            color: aliceblue;
+            font-weight: 700;
+            line-height: 1.6;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        #learn-btn:hover .circle {
+            width: 100%;
+        }
+
+        #learn-btn:hover .circle .icon.arrow {
+            background: #fff;
+            transform: translate(1rem, 0);
+        }
+
+        #learn-btn:hover .button-text {
+            color: #fff;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/loader.css">
+
+</head>
+
+<body>
+    <button class="back-button" onclick="window.history.back()">
+        <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024">
+            <path
+                d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z">
+            </path>
+        </svg>
+        <span>Back</span>
+    </button>
+
+    <div class="weather-container">
+        <div class="top-section">
+            <div class="left-info">
+                <div class="time" id="current-time">--:-- --</div>
+                <div class="location" id="location">Enter a location</div>
+                <div class="feels-like" id="feels-like">Feels like --°C</div>
+            </div>
+            <div class="right-info">
+                <div class="precipitation" id="precipitation">Precipitation: --%</div>
+                <div class="humidity" id="humidity">Humidity: --%</div>
+                <div class="wind" id="wind">Wind: -- km/h</div>
+            </div>
+        </div>
+
+        <div class="middle-section">
+            <div class="weather-icon" id="weather-icon">🌤️</div>
+            <div class="temperature" id="temperature">--°C</div>
+            <div class="weather-description" id="weather-description">Search for weather</div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" id="search-input" placeholder="Search for a city...">
+                <button class="search-btn" id="search-btn">Search</button>
+            </div>
+            <div id="loading" class="loading" style="display: none;">Loading weather data...</div>
+            <div id="error" class="error" style="display: none;"></div>
+        </div>
+
+        <div class="forecast-section">
+            <div class="forecast-title">5-Day Forecast</div>
+            <div class="forecast-container" id="forecast-container"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="learn-more" id="learn-btn">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Learn More</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="notification-container"></div>
+
+    <section class="container-loader" id="loaderSection" style="display: none;">
+        <aside class="loader">
+
+            <div style="--s: 1" class="aro"></div>
+            <div style="--s: 2" class="aro"></div>
+
+            <div style="--s: 4" class="aro"></div>
+            <div style="--s: 5" class="aro"></div>
+
+            <div style="--s: 7" class="aro"></div>
+            <div style="--s: 8" class="aro"></div>
+
+            <div style="--s: 10" class="aro"></div>
+            <div style="--s: 11" class="aro"></div>
+
+            <div style="--s: 13" class="aro"></div>
+            <div style="--s: 14" class="aro"></div>
+        </aside>
+    </section>
+
+    <script src="../js/weather.js"></script>
+    <script type="module" src="../js/gen.js"></script>
+    <script type="module" src="../js/notification.js"></script>
+    <script>
+        document.querySelector(".back-button").addEventListener("click", function () {
+            window.history.back();
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudy Couture</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loader.css">
+    <link rel="icon" sizes="32x32" href="../assets/images/cc-logo.png">
+    <link rel="icon" sizes="16x16" href="../assets/images/cc-logo.png">
+    <link rel="apple-touch-icon" href="../assets/images/cc-logo.png">
+
+    <style>
+        .carousel-inner img {
+            max-height: 430px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <header>
+            <!-- From Uiverse.io by JulanDeAlb -->
+            <div>
+                <label class="hamburger" style="size: 20px;">
+                    <input type="checkbox">
+                    <svg viewBox="0 0 32 32">
+                        <path class="line line-top-bottom"
+                            d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                        </path>
+                        <path class="line" d="M7 16 27 16"></path>
+                    </svg>
+                </label>
+
+                <nav class="side-menu" id="sideMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Introduction</a></li>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="weather.html">Weather</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+            <a href="./index.html"><img class="cc-logo" src="../assets/images/cc-logo.png" alt="cc-logo"
+                    style="width: 100px;" style="padding: 20px;"></a>
+
+            <!-- From Uiverse.io by Li-Deheng -->
+            <div class="search-panels">
+                <div class="search-group">
+                    <input required="" type="text" name="text" autocomplete="on" class="search-input">
+                    <label class="enter-label">Search</label>
+                    <div class="btn-box">
+                        <button class="btn-search">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                                <path
+                                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                                </path>
+                                <circle id="svg-circle" cx="208" cy="208" r="144"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="btn-box-x">
+                        <button class="btn-cleare">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                                <path
+                                    d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                                    id="cleare-line"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- From Uiverse.io by matinMMA -->
+            <button class="acc-button">
+                <a id="bot" href="./login.html"> Login </a>
+            </button>
+
+        </header>
+
+        <main>
+
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://pendecor.vn/uploads/files/2023/11/04/chan-chan-store-6.jpg"
+                            class="d-block w-100" alt="Banner1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://pendecor.vn/uploads/files/2023/11/04/chan-chan-store-3.jpg"
+                            class="d-block w-100" alt="Banner2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://pendecor.vn/uploads/files/2023/11/04/chan-chan-store-5.jpg"
+                            class="d-block w-100" alt="Banner3">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="main-layout">
+                <div class="main-content container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="new-posts">
+                                <h1>RECOMMENDED POST</h1>
+                                <div id="recommended-container"></div>
+                                <!-- <div class="card2" onclick="window.location.href='sunny-day.html'"
+                                    style="cursor:pointer;">
+                                    <div class="card2-image"></div>
+                                    <p class="card2-title">Card title</p>
+                                    <p class="card2-body">
+                                        Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
+                                        tristique, non lobortis.
+                                    </p>
+                                    <p class="card-footer">Written by <span class="by-name">User</span> on
+                                        <span class="date"></span>
+                                    </p>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="main-sidebar sticky-top">
+                                <h4 style="margin-top: 20px;">Important information</h4>
+                                <div class="card1" onclick="window.location.href='about.html'" style="cursor:pointer;">
+                                    <div class="body">
+                                        <h5 style="color: aliceblue;">Welcome to Clothes Couture!</h5>
+                                        <p class="text">Clothes Couture is your everyday style companion, designed to...
+                                        </p>
+                                        <span class="username">From: Clothes Couture</span>
+
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 20px;">
+                                    <h4 style="margin-top: 20px;">You should check out</h4>
+                                    <button class="learn-more" id="learn-btn"
+                                        onclick="window.location.href='community.html'" style="cursor:pointer;">
+                                        <span class="circle" aria-hidden="true">
+                                            <span class="icon arrow"></span>
+                                        </span>
+                                        <span class="button-text">Community</span>
+                                    </button>
+                                </div>
+
+                                <div style="margin-top: 20px;">
+                                    <h4 style="margin-top: 20px;">Try our weather meter feature!</h4>
+                                    <button class="learn-more" id="learn-btn"
+                                        onclick="window.location.href='weather.html'" style="cursor:pointer;">
+                                        <span class="circle" aria-hidden="true">
+                                            <span class="icon arrow"></span>
+                                        </span>
+                                        <span class="button-text">Weather App</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- From Uiverse.io by 3HugaDa3 -->
+        <label class="cosmic-toggle">
+            <input class="toggle" type="checkbox" />
+            <div class="slider">
+                <div class="cosmos"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="energy-line"></div>
+                <div class="toggle-orb">
+                    <div class="inner-orb"></div>
+                    <div class="ring"></div>
+                </div>
+                <div class="particles">
+                    <div style="--angle: 30deg" class="particle"></div>
+                    <div style="--angle: 60deg" class="particle"></div>
+                    <div style="--angle: 90deg" class="particle"></div>
+                    <div style="--angle: 120deg" class="particle"></div>
+                    <div style="--angle: 150deg" class="particle"></div>
+                    <div style="--angle: 180deg" class="particle"></div>
+                </div>
+            </div>
+        </label>
+
+        <div class="container">
+            <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <img class="mb-2" src="../assets/images/cc-logo.png" alt="" width="80px">
+                        <small class="d-block mb-3 text-body-secondary">©2025</small>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://uiverse.io/">UIverse.io</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Online Articles</a>
+                            </li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Quyền The
+                                    Teacher</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Donate</h5>
+                        <ul class="list-unstyled text-small image-dona">
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/d4bbea4570b93bfd5fc652ca82a262a8"
+                                    alt="Visa"></li>
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/a0a9062ebe19b45c1ae0506f16af5c16"
+                                    alt="Mastercard"></li>
+                            <li class="mb-1"><img
+                                    src="https://down-vn.img.susercontent.com/file/38fd98e55806c3b2e4535c4e4a6c4c08"
+                                    alt="JBC"></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <h5>Information</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="./about.html">About
+                                    us</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="./community.html">Community</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="./weather.html">Weather</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="notification-container"></div>
+
+    <section class="container-loader" id="loaderSection" style="display: none;">
+        <aside class="loader">
+
+            <div style="--s: 1" class="aro"></div>
+            <div style="--s: 2" class="aro"></div>
+
+            <div style="--s: 4" class="aro"></div>
+            <div style="--s: 5" class="aro"></div>
+
+            <div style="--s: 7" class="aro"></div>
+            <div style="--s: 8" class="aro"></div>
+
+            <div style="--s: 10" class="aro"></div>
+            <div style="--s: 11" class="aro"></div>
+
+            <div style="--s: 13" class="aro"></div>
+            <div style="--s: 14" class="aro"></div>
+        </aside>
+    </section>
+
+
+    <script src="../js/app.js" type="module"></script>
+    <script type="module" src="../js/notification.js"></script>
+    <script type="module" src="../js/gen.js"></script>
+    <script>
+        const hamburger = document.querySelector('.hamburger input');
+        const sideMenu = document.getElementById('sideMenu');
+
+        hamburger.addEventListener('change', () => {
+            if (hamburger.checked) {
+                sideMenu.classList.add('show');
+            } else {
+                sideMenu.classList.remove('show');
+            }
+        });
+    </script>
+
+<style>
+            .dark-mode .card2 {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .card2-title {
+            color: aliceblue !important;
+        }
+        
+        .dark-mode .card2-body {
+            color: #ccc !important;
+        }
+        
+        .dark-mode .card-footer {
+            color: #aaa !important;
+            border-top-color: #444 !important;
+        }
+        
+        .dark-mode .by-name {
+            color: teal !important;
+        }
+</style>
+    <script>
+        async function loadRecommendedPosts() {
+            try {
+                const res = await fetch("../data/posts.json");
+                const posts = await res.json();
+
+                const shuffled = posts.sort(() => 0.5 - Math.random());
+
+                const selected = shuffled.slice(0, 4);
+
+                const container = document.getElementById("recommended-container");
+                container.innerHTML = "";
+
+                selected.forEach(post => {
+                    const card = document.createElement("div");
+                    card.className = "card2";
+                    card.style.cursor = "pointer";
+                    card.onclick = () => {
+                        window.location.href = post.link;
+                    };
+
+                    card.innerHTML = `
+          <div class="card2-image" style="background-image: url('${post.image}'); background-size: cover; background-position: center;"></div>
+          <p class="card2-title">${post.title}</p>
+          <p class="card2-body">${post.body}</p>
+          <p class="card-footer">Written by <span class="by-name">${post.username}</span> on 
+            <span class="date">${post.date}</span>
+          </p>
+        `;
+
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error("Error loading posts:", err);
+            }
+        }
+
+        loadRecommendedPosts();
+    </script>
+</body>
+
+
+</html>
