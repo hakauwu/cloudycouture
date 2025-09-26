@@ -1,0 +1,64 @@
+[
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in cloudy day?",
+    "body": "Cloudy days create a softer, muted atmosphere compared to bright sunny weather. While temperatures can vary, a cloudy day often feels cooler due to less sunlight, though it’s not always cold.",
+    "image": "https://images.unsplash.com/photo-1592786351826-fae98fc2622e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "cloudy-day.html"
+  },
+  
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in cold day?",
+    "body": "Cold days are often marked by low temperatures, chilly winds, and sometimes frost or snow. Unlike mild or hot weather, a cold day requires dressing warmly to stay comfortable and avoid catching a chill.",
+    "image": "https://www.deeproot.com/wp-content/uploads/stories/2016/08/8663264792_822c6c356e_k_small.jpg",
+    "link": "cold-day.html"
+  },
+
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in rainy day?",
+    "body": "Rainy days bring cooler temperatures, wet streets, and unpredictable showers, so dressing properly is essential to stay dry and comfortable.",
+    "image": "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/1050/files/2022/01/istock-1164520030.jpg",
+    "link": "rainy-day.html"
+  },
+
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in sunny day?",
+    "body": "Sunny days are wonderful for going out, but choosing the right outfit is important to stay comfortable and stylish. Unlike mild or cloudy weather, a sunny day often means brighter skies, stronger sunlight, and warmer temperatures.",
+    "image": "https://www.advancedsciencenews.com/wp-content/uploads/2018/07/oilseed-rape-2135026_1920.jpg",
+    "link": "sunny-day.html"
+  },
+
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in windy day?",
+    "body": "Windy days can feel unpredictable — one moment refreshing, the next a bit chilly oreven harsh. Unlike cloudy or sunny weather, windy days affect not only temperature but also comfort, as strong gusts can make it harder to stay warm or keep clothes in place.",
+    "image": "https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/weather/wind/windswept-trees.jpg/windswept-trees.jpg/metofficegovuk%3AheroMedium",
+    "link": "windy-day.html"
+  },
+
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in hot day?",
+    "body": "Hot days are often marked by high temperatures, strong sunlight, and sometimes dry or humid air. Unlike mild or breezy days, a hot day requires clothing that keeps you cool, comfortable, and protected from overheating.",
+    "image": "https://images.pexels.com/photos/147465/pexels-photo-147465.jpeg",
+    "link": "hot-day.html"
+  },
+
+  {
+    "username": "Admin",
+    "date": "None",
+    "title": "What to wear in mild day?",
+    "body": "Choosing the right outfit depends a lot on the weather. While it is easy to prepare for cold winters or hot summers, dressing for a mild day can sometimes be tricky.",
+    "image": "https://www.civitatis.com/f/belgica/bruselas/guia/tiempo.jpg",
+    "link": "mild-day.html"
+  }
+]
