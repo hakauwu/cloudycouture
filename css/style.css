@@ -1,0 +1,978 @@
+* {
+    font-family: 'Rubik', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+}
+
+body {
+    background-color: #fff;
+    color: #000000;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 40px;
+    background-color: auto;
+    color: auto;
+    gap: 2rem;
+}
+
+main {
+    flex: 1;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* From Uiverse.io by 3HugaDa3 */
+.cosmic-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    width: 70px;
+    height: 40px;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.toggle {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #1a1a2e, #16213e);
+    border-radius: 35px;
+    transition: 0.5s;
+    transform-style: preserve-3d;
+    box-shadow:
+        0 0 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.cosmos {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 20% 20%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 30% 30%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 40% 40%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 50% 50%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 60% 60%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 70% 70%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 80% 80%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 90% 90%, #fff 100%, transparent);
+    background-size: 200% 200%;
+    opacity: 0.1;
+    transition: 0.5s;
+}
+
+.toggle-orb {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: 3px;
+    bottom: 3px;
+    background: linear-gradient(145deg, #ff6b6b, #4ecdc4);
+    border-radius: 50%;
+    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+    z-index: 2;
+}
+
+.inner-orb {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff, #e6e6e6);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.inner-orb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-conic-gradient(from 0deg,
+            transparent 0deg,
+            rgba(0, 0, 0, 0.1) 10deg,
+            transparent 20deg);
+    animation: patternRotate 10s linear infinite;
+}
+
+.ring {
+    position: absolute;
+    inset: -2px;
+    border-width: 1.5px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: 0.5s;
+}
+
+.toggle:checked+.slider {
+    background: linear-gradient(45deg, #16213e, #1a1a2e);
+}
+
+.toggle:checked+.slider .toggle-orb {
+    transform: translateX(30px) rotate(360deg);
+    background: linear-gradient(145deg, #4ecdc4, #45b7af);
+}
+
+.toggle:checked+.slider .inner-orb {
+    background: linear-gradient(145deg, #45b7af, #3da89f);
+    transform: scale(0.9);
+}
+
+.toggle:checked+.slider .ring {
+    border-color: rgba(78, 205, 196, 0.3);
+    animation: ringPulse 2s infinite;
+}
+
+.energy-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(78, 205, 196, 0.5),
+            transparent);
+    transform-origin: left;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.energy-line:nth-child(1) {
+    top: 20%;
+    transform: rotate(15deg);
+}
+
+.energy-line:nth-child(2) {
+    top: 50%;
+    transform: rotate(0deg);
+}
+
+.energy-line:nth-child(3) {
+    top: 80%;
+    transform: rotate(-15deg);
+}
+
+.toggle:checked+.slider .energy-line {
+    opacity: 1;
+    animation: energyFlow 2s linear infinite;
+}
+
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #4ecdc4;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.toggle:checked+.slider .particle {
+    animation: particleBurst 1s ease-out infinite;
+}
+
+.particle:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    left: 40%;
+    animation-delay: 0.2s;
+}
+
+.particle:nth-child(3) {
+    left: 60%;
+    animation-delay: 0.4s;
+}
+
+.particle:nth-child(4) {
+    left: 80%;
+    animation-delay: 0.6s;
+}
+
+.particle:nth-child(5) {
+    left: 30%;
+    animation-delay: 0.8s;
+}
+
+.particle:nth-child(6) {
+    left: 70%;
+    animation-delay: 1s;
+}
+
+/* Анимации */
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+}
+
+@keyframes patternRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes energyFlow {
+    0% {
+        transform: scaleX(0) translateX(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scaleX(1) translateX(50%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleX(0) translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes particleBurst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(calc(cos(var(--angle)) * 50px),
+                calc(sin(var(--angle)) * 50px)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Hover эффекты */
+.slider:hover .toggle-orb {
+    filter: brightness(1.2);
+    box-shadow:
+        0 0 20px rgba(78, 205, 196, 0.5),
+        0 0 40px rgba(78, 205, 196, 0.3);
+}
+
+.slider:hover .cosmos {
+    opacity: 0.2;
+    animation: cosmosPan 20s linear infinite;
+}
+
+@keyframes cosmosPan {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 200% 200%;
+    }
+}
+
+/* Активное состояние */
+.toggle:active+.slider .toggle-orb {
+    transform: scale(0.95);
+}
+
+/* 3D эффект при наведении */
+.cosmic-toggle:hover .slider {
+    transform: rotateX(10deg) rotateY(10deg);
+}
+
+.cosmic-toggle:hover .toggle-orb {
+    transform: translateZ(10px);
+}
+
+/* Тень */
+.toggle:checked+.slider::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x) var(--y),
+            rgba(78, 205, 196, 0.2),
+            transparent 50%);
+    opacity: 0;
+    animation: glowFollow 2s linear infinite;
+}
+
+@keyframes glowFollow {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+header {
+    display: flex;
+}
+
+/* From Uiverse.io by matinMMA */
+.acc-button {
+    font-size: 18px;
+    color: #fff;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+    margin-left: auto;
+}
+
+a {
+    color: teal;
+    text-decoration: none;
+}
+
+.acc-button:focus,
+.acc-button:hover {
+    color: teal;
+}
+
+.acc-button:focus:after,
+.acc-button:hover:after {
+    width: 50%;
+    left: 0%;
+}
+
+.acc-button:after {
+    content: "";
+    pointer-events: none;
+    bottom: 25px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: teal;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+#bot:focus,
+#bot:hover {
+    color: teal;
+}
+
+#bot:focus:after,
+#bot:hover:after {
+    width: 50%;
+    right: 0%;
+}
+
+#bot:after {
+    content: "";
+    pointer-events: none;
+    bottom: -5px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: teal;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, right;
+}
+
+/* From Uiverse.io by Li-Deheng */
+.search-panels {
+    --default-color: #9e9e9e;
+    --color-text: #ccc;
+    --color-active: teal;
+    --color-active-input: #f5f5f5;
+    --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --width-input: 400px;
+    --width-input-after: 700px;
+    margin-left: auto;
+}
+
+.search-group {
+    position: relative;
+}
+
+.search-input {
+    width: var(--width-input);
+    border: solid 1.5px var(--default-color);
+    border-radius: 80px;
+    background: none;
+    padding: 1rem;
+    padding-right: 3rem;
+    font-size: 1rem;
+    color: var(--color-active-input);
+    transition: border var(--transition);
+}
+
+.enter-label {
+    position: absolute;
+    left: 15px;
+    color: var(--default-color);
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition: var(--transition);
+}
+
+.enter-label {
+    color: var(--default-color);
+    pointer-events: none;
+}
+
+.search-input:focus,
+input:valid {
+    outline: none;
+    border: 1.5px solid var(--color-active);
+    width: var(--width-input-after);
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input:focus~label,
+input:valid~label {
+    transform: translateY(-50%) scale(0.8);
+    background-color: var(--color-active);
+    border-radius: 20px;
+    padding: .2em .6em;
+    color: var(--color-text);
+}
+
+.btn-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -1em;
+    right: 90%;
+    border-radius: 100%;
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 100ms;
+    opacity: 0;
+}
+
+.search-input:focus~.btn-box,
+input:valid~.btn-box {
+    right: 10%;
+    opacity: 1;
+    transition-delay: 0s;
+    transition: var(--transition);
+
+}
+
+.search-input:not(:focus)~.btn-box,
+input:not(:valid)~.btn-box {
+    transition-property: right, opacity;
+    transition-delay: 300ms;
+}
+
+.search-input:focus~.btn-box:hover,
+input:valid~.btn-box:hover {
+    transform: scale(1.2);
+}
+
+.search-input:focus~.btn-box:hover:active,
+input:valid~.btn-box:hover:active {
+    transform: scale(1);
+}
+
+.btn-search {
+    position: relative;
+    cursor: pointer;
+    background-color: var(--color-active);
+    width: 2em;
+    height: 2em;
+    top: 2.5px;
+    border: none;
+    border-radius: 100%;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.btn-search:active {
+    transform: scale(1);
+}
+
+.btn-search svg {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    fill: var(--color-text);
+    width: 12px;
+    height: 12px;
+}
+
+#svg-circle {
+    fill: var(--color-text);
+    transition: var(--transition);
+}
+
+.input:focus~.btn-box:hover #svg-circle,
+input:valid~.btn-box:hover #svg-circle {
+    fill: transparent;
+}
+
+.btn-box-x {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 1em;
+    right: 7%;
+    opacity: 0;
+    transform: rotate(-90deg) scale(.1);
+    transition: var(--transition);
+}
+
+.search-input:focus~.btn-box-x,
+input:valid~.btn-box-x {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+.btn-cleare {
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    width: 2em;
+    height: 2em;
+    border: none;
+    border-radius: 100%;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.btn-cleare svg {
+    width: 15px;
+    height: 15px;
+}
+
+#cleare-line {
+    fill: var(--default-color);
+}
+
+.btn-box-x:hover #cleare-line {
+    fill: var(--color-active);
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-footer {
+    background-color: #121212;
+    color: #eee;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-branding h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+h1 {
+    margin: 0 0 12px 0;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.footer-links a,
+.footer-socials a {
+    color: #eee;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover,
+.footer-socials a:hover {
+    color: #ffc107;
+}
+
+.footer-socials i {
+    font-size: 1.2rem;
+}
+
+.footer-copy {
+    margin-top: 1.5rem;
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* From Uiverse.io by JulanDeAlb */
+.hamburger {
+    cursor: pointer;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2000;
+    color: teal;
+}
+
+.hamburger input {
+    display: none;
+}
+
+.hamburger svg {
+    height: 2em;
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line {
+    fill: none;
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+    stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked+svg {
+    transform: rotate(-45deg);
+}
+
+.hamburger input:checked+svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+}
+
+
+.line {
+    stroke: teal;
+}
+
+body.dark-mode .line {
+    stroke: white;
+}
+
+:root {
+    --menu-bg: #fff;
+}
+
+body.dark-mode {
+    --menu-bg: teal;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--menu-bg-color, teal);
+    color: white;
+    padding: 3rem 2rem;
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu ul li {
+    margin: 1rem 0;
+}
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.side-menu.show {
+    left: 0;
+}
+
+/* From Uiverse.io by Yaya12085 */
+.card1 {
+    position: relative;
+    background-color: teal;
+    padding: 1em;
+    z-index: 5;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    max-width: 300px;
+    transition: 200ms ease-in-out;
+}
+
+.username {
+    color: white;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.body .text {
+    margin: 0 10px 0 0;
+    white-space: pre-line;
+    color: whitesmoke;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    color: #9fa4aa;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    margin-top: 10px;
+}
+
+.footer div {
+    margin-right: 1rem;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.footer svg {
+    margin-right: 5px;
+    height: 100%;
+    stroke: #9fa4aa;
+}
+
+.viewer span {
+    height: 20px;
+    width: 20px;
+    background-color: teal;
+    margin-right: -6px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 8px;
+    color: #fff;
+    padding: 2px;
+}
+
+.viewer span svg {
+    stroke: #fff;
+}
+
+/* From Uiverse.io by Sashank02 */
+.card2 {
+    padding: 20px;
+    margin-top: 30px;
+    width: 330px;
+    width: 100%;
+    max-width: 700px;
+    min-height: 370px;
+    border-radius: 20px;
+    background: #e8e8e8;
+    transition: 0.4s;
+}
+
+.card2:hover {
+    translate: 0 -10px;
+}
+
+.card2-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: teal;
+    margin: 15px 0 0 10px;
+}
+
+.card2-image {
+    min-height: 170px;
+    background-color: #c9c9c9;
+    border-radius: 15px;
+    box-shadow: inset 8px 8px 10px #c3c3c3,
+        inset -8px -8px 10px #cfcfcf;
+}
+
+.card2-body {
+    margin: 13px 0 0 10px;
+    color: rgb(31, 31, 31);
+    font-size: 15px;
+}
+
+.card-footer {
+    float: right;
+    margin: 28px 0 0 18px;
+    font-size: 13px;
+    color: #636363;
+}
+
+.by-name {
+    font-weight: 700;
+}
+
+.main-layout {
+    display: flex;
+    position: relative;
+    padding: 50px 100px;
+}
+
+.main-sidebar {
+    position: sticky;
+    top: 20px;
+    max-height: 90vh;
+}
+
+#learn-btn {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+#learn-btn.learn-more {
+    width: 12rem;
+    height: auto;
+}
+
+#learn-btn.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: rgb(0, 85, 85);
+    border-radius: 1.625rem;
+}
+
+#learn-btn.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+#learn-btn.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+#learn-btn.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+
+#learn-btn.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: teal;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#learn-btn:hover .circle {
+    width: 100%;
+}
+
+#learn-btn:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+#learn-btn:hover .button-text {
+    color: #fff;
+}

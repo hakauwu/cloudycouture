@@ -1,0 +1,568 @@
+* {
+    font-family: 'Rubik', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(https://i.redd.it/8eb30cgaz0j11.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* From Uiverse.io by akshat-patel28 */
+.login-form {
+    position: relative;
+    z-index: 2;
+    width: 350px;
+    height: 500px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+}
+
+.title {
+    text-align: center;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    margin: 10px 0 30px 0;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 15px;
+}
+
+.input {
+    border-radius: 20px;
+    border: 1px solid #c0c0c0;
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 12px 15px;
+}
+
+.page-link {
+    text-decoration: underline;
+    margin: 0;
+    text-align: end;
+    color: #747474;
+    text-decoration-color: #747474;
+}
+
+.page-link-label {
+    cursor: pointer;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.page-link-label:hover {
+    color: #000;
+}
+
+.form-btn {
+    padding: 10px 15px;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    border-radius: 20px;
+    border: 0 !important;
+    outline: 0 !important;
+    background: teal;
+    color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-btn:active {
+    box-shadow: none;
+}
+
+.sign-up-label {
+    margin: 0;
+    font-size: 10px;
+    color: #747474;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.sign-up-link {
+    margin-left: 1px;
+    font-size: 11px;
+    text-decoration: underline;
+    text-decoration-color: teal;
+    color: teal;
+    cursor: pointer;
+    font-weight: 800;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.buttons-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.apple-login-button,
+.google-login-button {
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 11px;
+    gap: 5px;
+}
+
+.apple-login-button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.google-login-button {
+    border: 2px solid #747474;
+}
+
+.apple-icon,
+.google-icon {
+    font-size: 18px;
+    margin-bottom: 1px;
+}
+
+/* From Uiverse.io by xerith_8140 */
+/* Notification container */
+
+.notification-container {
+    /* Position top left */
+
+    /* position: fixed;
+      top: 2%;
+      left: 2%;
+      z-index: 1000;
+      max-width: 80%; */
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+
+
+    --content-color: black;
+    --background-color: #f3f3f3;
+    --font-size-content: 0.75em;
+    --icon-size: 1em;
+
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    list-style-type: none;
+    font-family: sans-serif;
+    color: var(--content-color);
+}
+
+/* Notification Item */
+
+.notification-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 1em;
+    overflow: hidden;
+    padding: 10px 15px;
+    border-radius: 6px;
+    box-shadow: rgba(111, 111, 111, 0.2) 0px 8px 24px;
+    background-color: var(--background-color);
+    transition: all 250ms ease;
+
+    /* Background Pattern */
+
+    --grid-color: rgba(225, 225, 225, 0.7);
+    background-image: linear-gradient(0deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent);
+    background-size: 55px 55px;
+}
+
+.notification-item svg {
+    transition: 250ms ease;
+}
+
+.notification-item:hover {
+    transform: scale(1.01);
+}
+
+.notification-item:active {
+    transform: scale(1.05);
+}
+
+.notification-item .notification-close:hover {
+    background-color: rgba(204, 204, 204, 0.45);
+}
+
+.notification-item .notification-close:hover svg {
+    color: rgb(0, 0, 0);
+}
+
+.notification-item .notification-close:active svg {
+    transform: scale(1.1);
+}
+
+/* Notification Icons */
+
+.notification-item .notification-close {
+    padding: 2px;
+    border-radius: 5px;
+    transition: all 250ms;
+}
+
+.notification-container svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--content-color);
+}
+
+.notification-icon {
+    display: flex;
+    align-items: center;
+}
+
+/* Success */
+
+.success {
+    color: #047857;
+    background-color: #7dffbc;
+    --grid-color: rgba(16, 185, 129, 0.25);
+    background-image: linear-gradient(0deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent);
+}
+
+.success svg {
+    color: #047857;
+}
+
+.success .notification-progress-bar {
+    background-color: #047857;
+}
+
+.success:hover {
+    background-color: #5bffaa;
+}
+
+/* Info */
+
+.info {
+    color: #1e3a8a;
+    background-color: #7eb8ff;
+    --grid-color: rgba(59, 131, 246, 0.25);
+    background-image: linear-gradient(0deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent);
+}
+
+.info svg {
+    color: #1e3a8a;
+}
+
+.info .notification-progress-bar {
+    background-color: #1e3a8a;
+}
+
+.info:hover {
+    background-color: #5ba5ff;
+}
+
+/* Warning */
+
+.warning {
+    color: #78350f;
+    background-color: #ffe57e;
+    --grid-color: rgba(245, 159, 11, 0.25);
+    background-image: linear-gradient(0deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent);
+}
+
+.warning svg {
+    color: #78350f;
+}
+
+.warning .notification-progress-bar {
+    background-color: #78350f;
+}
+
+.warning:hover {
+    background-color: #ffde59;
+}
+
+/* Error */
+
+.error {
+    color: #7f1d1d;
+    background-color: #ff7e7e;
+    --grid-color: rgba(239, 68, 68, 0.25);
+    background-image: linear-gradient(0deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 23%,
+            var(--grid-color) 24%,
+            var(--grid-color) 25%,
+            transparent 26%,
+            transparent 73%,
+            var(--grid-color) 74%,
+            var(--grid-color) 75%,
+            transparent 76%,
+            transparent);
+}
+
+.error svg {
+    color: #7f1d1d;
+}
+
+.error .notification-progress-bar {
+    background-color: #7f1d1d;
+}
+
+.error:hover {
+    background-color: #ff5f5f;
+}
+
+/* Notification content */
+
+.notification-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.notification-text {
+    font-size: var(--font-size-content);
+    user-select: none;
+}
+
+.notification-close {
+    cursor: pointer;
+}
+
+/* Notification progress bar */
+
+.notification-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--content-color);
+    width: 100%;
+    transform: translateX(100%);
+
+    /* Remove the infinite property for your website */
+
+    animation: progressBar 5s linear forwards infinite;
+}
+
+/* progressBar Animation */
+
+@keyframes progressBar {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.site-footer {
+    background-color: #222;
+    color: #eee;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-branding h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.footer-links a,
+.footer-socials a {
+    color: #eee;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover,
+.footer-socials a:hover {
+    color: #ffc107;
+}
+
+.footer-socials i {
+    font-size: 1.2rem;
+}
+
+.footer-copy {
+    margin-top: 1.5rem;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2000;
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+}
+
+.back-button>svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+}
+
+.back-button:hover>svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+}
+
+.back-button:hover {
+    box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+    transform: translateY(-2px);
+}
